@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ExampleScenarioTest {
@@ -42,20 +41,21 @@ public class ExampleScenarioTest {
         cookiesBtnClose.click();
 
         // выбрать пункт меню - "Страхование"
-        String insuranceButtonXPath = "//a[@aria-label='Страхование']";
-        List<WebElement> insuranceButtonList = driver.findElements(By.xpath(insuranceButtonXPath));
-        if (!insuranceButtonList.isEmpty()){
-            insuranceButtonList.get(0).click();
-        }
+        String insuranceButtonXPath = "//a[contains(text(), 'Страхование') and contains(@role, 'button')]";
+        WebElement insuranceButton = driver.findElement(By.xpath(insuranceButtonXPath));
+        waitUtilElementToBeClickable(insuranceButton);
+        insuranceButton.click();
 
-        // выбрать пункт подменю - "Перейти в каталог"
+
+        // выбрать пункт подменю - "Путешествия"
         String sberInsuranceButtonXPath = "//a[text()='Путешествия']";
         WebElement travellersInsuranceButton = driver.findElement(By.xpath(sberInsuranceButtonXPath));
+        waitUtilElementToBeClickable(travellersInsuranceButton);
         travellersInsuranceButton.click();
 
         // проверка открытия страницы "Страхование"
         Assert.assertEquals("Заголовок отсутствует/не соответствует требуемому",
-                "Страхование для путешественников — СберБанк", driver.getTitle());
+                "Купить туристическую страховку для выезда за границу — СберБанк", driver.getTitle());
 
         // нажать кнопку "Оформить онлайн"
         String checkoutOnlineXPath = "//*[text()='Оформить онлайн']/../../a[@data-test-id]";
