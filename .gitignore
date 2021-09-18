@@ -1,7 +1,7 @@
-# Folders ignore for git
+# Folders ignore
 target
 .idea
 
-# Files ignore for git
+# Files ignore
 *.iml
 .DS_Store
